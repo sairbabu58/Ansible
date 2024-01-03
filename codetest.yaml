@@ -1,0 +1,12 @@
+---
+- hosts: all
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  gather_facts: false
+  vars_prompt:
+    - name: "k8s_reset"
+      prompt: "Do you want to Reset Cluster  (yes/no)?"
+      private: no
+  tasks:
+  - name: file
+    shell: touch /tmp/file.txt
+    when: 'k8s_reset|bool'
